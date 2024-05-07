@@ -1,26 +1,18 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { Check, Star } from 'lucide-react';
 
+import { UserImagesGroup } from '@/components/UserImagesGroup';
+import { ListItem } from '@/components/ListItem';
+
+const userImages = [
+  '/users/user-1.png',
+  '/users/user-2.png',
+  '/users/user-3.png',
+  '/users/user-4.jpg',
+  '/users/user-5.jpg',
+];
+
 export default function Home() {
-  const userImages = [
-    '/users/user-1.png',
-    '/users/user-2.png',
-    '/users/user-3.png',
-    '/users/user-4.jpg',
-    '/users/user-5.jpg',
-  ];
-
-  const renderUserImages = () => {
-    return userImages.map((image, index) => (
-      <img
-        key={index}
-        className='inline-block h-10 w-10 rounded-full ring-2 ring-slate-100'
-        src={image}
-        alt='user image'
-      />
-    ));
-  };
-
   return (
     <div className='bg-slate-50'>
       <section>
@@ -47,22 +39,13 @@ export default function Home() {
               </p>
               <ul className='mt-8 space-y-2 text-left font-medium flex flex-col items-center sm:items-start'>
                 <div className='space-y-2'>
-                  <li className='flex gap-1.5 items-center text-left'>
-                    <Check className='h-5 w-5 shrink-0 text-green-600' />
-                    High quality, durable material
-                  </li>
-                  <li className='flex gap-1.5 items-center text-left'>
-                    <Check className='h-5 w-5 shrink-0 text-green-600' />5 year
-                    print guarantee
-                  </li>
-                  <li className='flex gap-1.5 items-center text-left'>
-                    <Check className='h-5 w-5 shrink-0 text-green-600' />
-                    Modern iPhone models supported
-                  </li>
+                  <ListItem>High quality, durable material</ListItem>
+                  <ListItem>5 year print guarantee</ListItem>
+                  <ListItem>Modern iPhone models supported</ListItem>
                 </div>
               </ul>
               <div className='mt-12 flex flex-col sm:flex-row items-center sm:items-start gap-5'>
-                <div className='flex -space-x-4'>{renderUserImages()}</div>
+                <UserImagesGroup userImages={userImages} />
                 <div className='flex flex-col justify-between items-center sm:items-start'>
                   <div className='flex gap-0.5'>
                     {Array.from({ length: 5 }).map((_, index) => (
