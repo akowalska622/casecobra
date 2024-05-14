@@ -5,6 +5,7 @@ import { UserImagesGroup } from '@/components/UserImagesGroup';
 import { ListItem } from '@/components/ListItem';
 import { Phone } from '@/components/Phone';
 import { Icons } from '@/components/Icons';
+import { UserTestimonial } from '@/components/UserTestimonial';
 
 const userImages = [
   '/users/user-1.png',
@@ -101,6 +102,22 @@ export default function Home() {
             />
           </div>
           <div className='mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 gap-y-16'>
+            <UserTestimonial
+              stars={5}
+              imgSrc='/users/user-1.png'
+              name='Jonathan'
+              verifiedPurchase
+            >
+              <p>
+                &ldquo;The case feels durable and I even got a compliment on the
+                design. Had the case for two and a half months now and{' '}
+                <span className='p-0.5 bg-slate-800 text-white'>
+                  the image is super clear
+                </span>
+                . On the case I had before, the image started trading into
+                yellow-ish color after a couple weeks. Love it.&ldquo;
+              </p>
+            </UserTestimonial>
             <div className='flex flex-auto flex-col gap-4 lg:pr-8 xl:pr-20'>
               <div className='flex gap-0.5 mb-2'>
                 {Array.from({ length: 5 }).map((_, index) => (
