@@ -6,6 +6,7 @@ import { ListItem } from '@/components/ListItem';
 import { Phone } from '@/components/Phone';
 import { Icons } from '@/components/Icons';
 import { UserTestimonial } from '@/components/UserTestimonial';
+import { Reviews } from '@/components/Reviews';
 
 const userImages = [
   '/users/user-1.png',
@@ -137,6 +138,9 @@ export default function Home() {
             </UserTestimonial>
           </div>
         </MaxWidthWrapper>
+        <div className='pt-16'>
+          <Reviews />
+        </div>
       </section>
     </div>
   );
