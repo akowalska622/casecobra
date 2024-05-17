@@ -46,7 +46,7 @@ export const Steps = () => {
               <span
                 className={cn(
                   index !== 0 ? 'lg:pl-9' : '',
-                  'flex items-center px-6 py-4 text-sm font-medium'
+                  'flex items-center px-6 py-4 text-sm font-medium select-none'
                 )}
               >
                 <span className='flex-shrink-0'>
@@ -54,7 +54,7 @@ export const Steps = () => {
                     src={imgPath}
                     alt='user image'
                     className={cn(
-                      'flex h-20 w-20 object-contain items-center justify-center',
+                      'flex h-20 w-20 object-contain items-center justify-center pointer-events-none',
                       {
                         'border-zinc-700': isCurrent,
                         'border-none': isCompleted,
