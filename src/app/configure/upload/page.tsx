@@ -14,11 +14,10 @@ const UploadPage = () => {
   const { toast } = useToast();
   const [isDragOver, setIsDragOver] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const isUploading = false;
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const { startUpload } = useUploadThing('imageUploader', {
+  const { startUpload, isUploading } = useUploadThing('imageUploader', {
     onClientUploadComplete: ([data]) => {
       const { configId } = data.serverData;
       startTransition(() => {
