@@ -28,9 +28,16 @@ export const ourFileRouter = {
             width: width || 500,
           },
         });
+        return { configId: configuration.id };
+      } else {
+        const updatedConfiguration = await db.configuration.update({
+          where: { id: configId },
+          data: {
+            croppedImageUrl: file.url,
+          },
+        });
+        return { configId: updatedConfiguration.id };
       }
-
-      return { configId };
     }),
 } satisfies FileRouter;
 

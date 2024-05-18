@@ -21,7 +21,7 @@ const UploadPage = () => {
     onClientUploadComplete: ([data]) => {
       const { configId } = data.serverData;
       startTransition(() => {
-        router.push(`configure/design?id=${configId}`);
+        router.push(`/configure/design?id=${configId}`);
       });
     },
     onUploadProgress(progress) {
