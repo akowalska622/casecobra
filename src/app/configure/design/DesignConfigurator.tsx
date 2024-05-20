@@ -60,10 +60,10 @@ const DesignConfigurator = ({
         </div>
         <Rnd
           default={{
-            x: 150,
-            y: 205,
-            height: imageDimensions.height / 4,
-            width: imageDimensions.width / 4,
+            x: 40,
+            y: 50,
+            height: imageDimensions.height / 6,
+            width: imageDimensions.width / 6,
           }}
           className='absolute z-20 border-[3px] border-primary'
           lockAspectRatio
