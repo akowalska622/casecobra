@@ -1,8 +1,12 @@
+'use client';
+
 import NextImage from 'next/image';
 import { Rnd } from 'react-rnd';
 
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { HandleComponent } from '@/components/HandleComponent';
 import { cn } from '@/lib/utils';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -54,7 +58,22 @@ const DesignConfigurator = ({
             )}
           />
         </div>
-        <Rnd>
+        <Rnd
+          default={{
+            x: 150,
+            y: 205,
+            height: imageDimensions.height / 4,
+            width: imageDimensions.width / 4,
+          }}
+          className='absolute z-20 border-[3px] border-primary'
+          lockAspectRatio
+          resizeHandleComponent={{
+            bottomRight: <HandleComponent />,
+            bottomLeft: <HandleComponent />,
+            topRight: <HandleComponent />,
+            topLeft: <HandleComponent />,
+          }}
+        >
           <div className='relative w-full h-full'>
             <NextImage
               src={imageUrl}
@@ -64,6 +83,21 @@ const DesignConfigurator = ({
             />
           </div>
         </Rnd>
+      </div>
+      <div className='h-[37.5rem] flex flex-col bg-white'>
+        <ScrollArea className='relative flex-1 overflow-auto'>
+          <div
+            aria-hidden='true'
+            className='absolute z-10 inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white pointer-events-none'
+          />
+          <div className='px-8 pb-12 pt-8'>
+            <h2 className='tracking-tight font-bold text-3xl'>
+              Customize your case
+            </h2>
+            <div className='w-full h-px bg-zinc-200 my-6' />
+            <div className='relative mt-4 h-full flex flex-col justify-between'></div>
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );
