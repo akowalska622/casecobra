@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { RadioGroup } from '@headlessui/react';
+import { RadioGroup, Radio } from '@headlessui/react';
 import NextImage from 'next/image';
 import { Rnd } from 'react-rnd';
 
@@ -118,14 +118,14 @@ const DesignConfigurator = ({
                 <Label>Color: {options.color.label}</Label>
                 <div className='mt-3 flex items-center space-x-3'>
                   {COLORS.map((color) => (
-                    <RadioGroup.Option
+                    <Radio
                       key={color.label}
                       value={color}
-                      className={({ active, checked }) =>
+                      className={({ checked }) =>
                         cn(
                           'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 active:ring-0 focus:ring-0 active:outline-none focus:outline-none border-2 border-transparent',
                           {
-                            [`border-${color.tw}`]: active || checked,
+                            [`border-${color.tw}`]: checked,
                           }
                         )
                       }
@@ -136,7 +136,7 @@ const DesignConfigurator = ({
                           'h-8 w-8 rounded-full border border-black border-opacity-10'
                         )}
                       />
-                    </RadioGroup.Option>
+                    </Radio>
                   ))}
                 </div>
               </RadioGroup>
