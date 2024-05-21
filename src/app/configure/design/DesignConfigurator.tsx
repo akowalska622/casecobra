@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { RadioGroup, Radio } from '@headlessui/react';
 import NextImage from 'next/image';
 import { Rnd } from 'react-rnd';
@@ -16,7 +16,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
-import { cn, formatPrice } from '@/lib/utils';
+import { cn, formatPrice, base64ToBlob } from '@/lib/utils';
 import {
   COLORS,
   FINISHES,
@@ -54,9 +54,74 @@ const DesignConfigurator = ({
     finish: FINISHES.options[0],
   });
 
+  const initialDimensions = {
+    width: imageDimensions.width / 6,
+    height: imageDimensions.height / 6,
+  };
+
+  const initialPosition = {
+    x: 100,
+    y: 30,
+  };
+
+  const [renderedDimension, setRenderedDimension] = useState(initialDimensions);
+  const [renderedPosition, setRenderedPosition] = useState(initialPosition);
+
+  const phoneCaseRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const saveConfiguration = async () => {
+    try {
+      const {
+        left: caseLeft,
+        top: caseTop,
+        width,
+        height,
+      } = phoneCaseRef.current!.getBoundingClientRect();
+
+      const { left: containerLeft, top: containerTop } =
+        containerRef.current!.getBoundingClientRect();
+
+      const leftOffset = caseLeft - containerLeft;
+      const topOffset = caseTop - containerTop;
+
+      const actualX = renderedPosition.x - leftOffset;
+      const actualY = renderedPosition.y - topOffset;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext('2d');
+      const userImage = new Image();
+      userImage.crossOrigin = 'anonymous';
+      userImage.src = imageUrl;
+      await new Promise((resolve) => (userImage.onload = resolve));
+
+      ctx?.drawImage(
+        userImage,
+        actualX,
+        actualY,
+        renderedDimension.width,
+        renderedDimension.height
+      );
+
+      const base64 = canvas.toDataURL();
+      const base64Data = base64.split(',')[1];
+
+      const blob = base64ToBlob(base64Data, 'image/png');
+      const file = new File([blob], 'filename.png', { type: 'image/png' });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className='relative mt-20 grid grid-cols-1 lg:grid-cols-3 mb-20 pb-20'>
-      <div className='relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'>
+      <div
+        ref={containerRef}
+        className='relative h-[37.5rem] overflow-hidden col-span-2 w-full max-w-4xl flex items-center justify-center rounded-lg border-2 border-dashed border-gray-300 p-12 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2'
+      >
         <div
           className={cn(
             'relative w-60 bg-opacity-50 pointer-events-none',
@@ -64,6 +129,7 @@ const DesignConfigurator = ({
           )}
         >
           <AspectRatio
+            ref={phoneCaseRef}
             ratio={
               +DEFAULT_ASPECT_RATIO.split('/')[0] /
               +DEFAULT_ASPECT_RATIO.split('/')[1]
@@ -90,10 +156,18 @@ const DesignConfigurator = ({
         </div>
         <Rnd
           default={{
-            x: 100,
-            y: 30,
-            height: imageDimensions.height / 6,
-            width: imageDimensions.width / 6,
+            ...initialPosition,
+            ...initialDimensions,
+          }}
+          onResizeStop={(_, __, ref, ___, { x, y }) => {
+            setRenderedDimension({
+              height: parseInt(ref.style.height.slice(0, -2)),
+              width: parseInt(ref.style.width.slice(0, -2)),
+            });
+            setRenderedPosition({ x, y });
+          }}
+          onDragStop={(_, { x, y }) => {
+            setRenderedPosition({ x, y });
           }}
           className='absolute z-20 border-[3px] border-primary'
           lockAspectRatio
