@@ -18,7 +18,7 @@ import {
 import { cn } from '@/lib/utils';
 import { COLORS, MODELS } from '@/validators/option-validator';
 import { Button } from '@/components/ui/button';
-import { ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown } from 'lucide-react';
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -175,7 +175,21 @@ const DesignConfigurator = ({
                                 model.label === options.model.label,
                             }
                           )}
+                          onClick={() => {
+                            setOptions((prev) => ({
+                              ...prev,
+                              model,
+                            }));
+                          }}
                         >
+                          <Check
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              model.label === options.model.label
+                                ? 'opacity-100'
+                                : 'opacity-0'
+                            )}
+                          />
                           {model.label}
                         </DropdownMenuItem>
                       ))}
