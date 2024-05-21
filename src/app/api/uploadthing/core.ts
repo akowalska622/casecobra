@@ -4,6 +4,12 @@ import sharp from 'sharp';
 
 import { db } from '@/db';
 
+const getNormalSize = ({ width, height, orientation }: sharp.Metadata) => {
+  return (orientation || 0) >= 5
+    ? { width: height, height: width }
+    : { width, height };
+};
+
 const f = createUploadthing();
 
 export const ourFileRouter = {
@@ -17,8 +23,9 @@ export const ourFileRouter = {
 
       const res = await fetch(file.url);
       const buffer = await res.arrayBuffer();
-      const imageMetadata = await sharp(buffer).metadata();
-      const { width, height } = imageMetadata;
+      const imageMetadata = await sharp(buffer).rotate().metadata();
+
+      const { width, height } = getNormalSize(imageMetadata);
 
       if (!configId) {
         const configuration = await db.configuration.create({
