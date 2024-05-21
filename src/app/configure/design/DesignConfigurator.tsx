@@ -16,7 +16,12 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
-import { COLORS, MODELS } from '@/validators/option-validator';
+import {
+  COLORS,
+  FINISHES,
+  MATERIALS,
+  MODELS,
+} from '@/validators/option-validator';
 import { Button } from '@/components/ui/button';
 import { Check, ChevronsUpDown } from 'lucide-react';
 
@@ -39,9 +44,13 @@ const DesignConfigurator = ({
   const [options, setOptions] = useState<{
     color: (typeof COLORS)[number];
     model: (typeof MODELS.options)[number];
+    material: (typeof MATERIALS.options)[number];
+    finish: (typeof FINISHES.options)[number];
   }>({
     color: COLORS[0],
     model: MODELS.options[0],
+    material: MATERIALS.options[0],
+    finish: FINISHES.options[0],
   });
 
   return (
@@ -196,6 +205,46 @@ const DesignConfigurator = ({
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
+                {[MATERIALS, FINISHES].map(
+                  ({ name, options: selectableOptions }) => (
+                    <RadioGroup
+                      key={name}
+                      value={options[name]}
+                      onChange={(value) => {
+                        setOptions((prev) => ({
+                          ...prev,
+                          [name]: value,
+                        }));
+                      }}
+                    >
+                      <Label>
+                        {name.slice(0, 1).toUpperCase() + name.slice(1)}:
+                      </Label>
+                      <div className='mt-3 space-y-4'>
+                        {selectableOptions.map((option) => (
+                          <Radio
+                            key={option.value}
+                            value={option}
+                            className={({ checked }) =>
+                              cn(
+                                'relative block cursor-pointer rounded-lg bg-white px-6 py-4 shadow-sm border-2 border-zinc-200 focus:outline-none ring-0 focus:ring-0 outline-none sm:flex sm:justify-between',
+                                {
+                                  'border-primary': checked,
+                                }
+                              )
+                            }
+                          >
+                            <span className='flex items-center'>
+                              <span className='flex flex-col text-sm'>
+                                <Label as='span'>{option.label}</Label>
+                              </span>
+                            </span>
+                          </Radio>
+                        ))}
+                      </div>
+                    </RadioGroup>
+                  )
+                )}
               </div>
             </div>
           </div>
