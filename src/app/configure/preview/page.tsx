@@ -1,15 +1,14 @@
 import { notFound } from 'next/navigation';
 
 import { db } from '@/db';
-import DesignConfigurator from './DesignConfigurator';
 
-interface DesignPageProps {
+interface PreviewPageProps {
   searchParams: {
     [key: string]: string | string[] | undefined;
   };
 }
 
-const Page = async ({ searchParams }: DesignPageProps) => {
+const PreviewPage = async ({ searchParams }: PreviewPageProps) => {
   const { id } = searchParams;
 
   if (!id || typeof id !== 'string') {
@@ -24,15 +23,7 @@ const Page = async ({ searchParams }: DesignPageProps) => {
     return notFound();
   }
 
-  const { imageUrl, width, height } = configuration;
-
-  return (
-    <DesignConfigurator
-      imageDimensions={{ width, height }}
-      configId={configuration.id}
-      imageUrl={imageUrl}
-    />
-  );
+  return <div>preview</div>;
 };
 
-export default Page;
+export default PreviewPage;
