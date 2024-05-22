@@ -24,7 +24,9 @@ import {
   MODELS,
 } from '@/validators/option-validator';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import { BASE_PRICE } from '@/config/product';
+import { useUploadThing } from '@/lib/uploadthing';
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -42,6 +44,7 @@ const DesignConfigurator = ({
   imageUrl,
   imageDimensions,
 }: DesignConfiguratorProps) => {
+  const { toast } = useToast();
   const [options, setOptions] = useState<{
     color: (typeof COLORS)[number];
     model: (typeof MODELS.options)[number];
@@ -69,6 +72,8 @@ const DesignConfigurator = ({
 
   const phoneCaseRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { startUpload } = useUploadThing('imageUploader');
 
   const saveConfiguration = async () => {
     try {
@@ -111,8 +116,15 @@ const DesignConfigurator = ({
 
       const blob = base64ToBlob(base64Data, 'image/png');
       const file = new File([blob], 'filename.png', { type: 'image/png' });
+
+      await startUpload([file], { configId });
     } catch (err) {
-      console.error(err);
+      toast({
+        title: 'Something went wrong',
+        description:
+          'There was a problem saving your config, please try again.',
+        variant: 'destructive',
+      });
     }
   };
 
@@ -359,7 +371,7 @@ const DesignConfigurator = ({
                     100
                 )}
               </p>
-              <Button size='sm' className='w-full'>
+              <Button size='sm' className='w-full' onClick={saveConfiguration}>
                 Continue <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>
