@@ -5,6 +5,7 @@ import { RadioGroup, Radio } from '@headlessui/react';
 import NextImage from 'next/image';
 import { Rnd } from 'react-rnd';
 import { ArrowRight, Check, ChevronsUpDown } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { HandleComponent } from '@/components/HandleComponent';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -27,6 +28,11 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { BASE_PRICE } from '@/config/product';
 import { useUploadThing } from '@/lib/uploadthing';
+import { useMutation } from '@tanstack/react-query';
+import {
+  SaveConfigArgs,
+  saveConfig as _saveConfig,
+} from '@/app/configure/design/actions';
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -45,6 +51,25 @@ const DesignConfigurator = ({
   imageDimensions,
 }: DesignConfiguratorProps) => {
   const { toast } = useToast();
+  const router = useRouter();
+
+  const { mutate: saveConfig } = useMutation({
+    mutationKey: ['save-config'],
+    mutationFn: async (args: SaveConfigArgs) => {
+      await Promise.all([saveConfiguration(), _saveConfig(args)]);
+    },
+    onError: () => {
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      });
+    },
+    onSuccess: () => {
+      router.push(`/configure/preview?id=${configId}`);
+    },
+  });
+
   const [options, setOptions] = useState<{
     color: (typeof COLORS)[number];
     model: (typeof MODELS.options)[number];
@@ -323,10 +348,7 @@ const DesignConfigurator = ({
                           >
                             <span className='flex items-center'>
                               <span className='flex flex-col text-sm'>
-                                <Label
-                                  as='span'
-                                  className='font-medium text-gray-900'
-                                >
+                                <Label className='font-medium text-gray-900'>
                                   {option.label}
                                 </Label>
                                 {option.description ? (
@@ -371,7 +393,19 @@ const DesignConfigurator = ({
                     100
                 )}
               </p>
-              <Button size='sm' className='w-full' onClick={saveConfiguration}>
+              <Button
+                size='sm'
+                className='w-full'
+                onClick={() =>
+                  saveConfig({
+                    configId,
+                    color: options.color.value,
+                    finish: options.finish.value,
+                    material: options.material.value,
+                    model: options.model.value,
+                  })
+                }
+              >
                 Continue <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>

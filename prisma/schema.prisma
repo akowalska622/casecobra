@@ -14,7 +14,7 @@ enum OrderStatus {
 }
 
 enum PhoneModel {
-  phonex
+  iphonex
   iphone11
   iphone12
   iphone13
@@ -40,13 +40,13 @@ enum CaseColor {
 }
 
 model Configuration {
-  id String @id @default(cuid())
-  imageUrl String
-  width Int
-  height Int
-  color CaseColor?
-  model PhoneModel?
-  material CaseMaterial?
-  finish CaseFinish?
+  id              String        @id @default(cuid())
+  imageUrl        String
+  width           Int
+  height          Int
+  color           CaseColor?
+  model           PhoneModel?
+  material        CaseMaterial?
+  finish          CaseFinish?
   croppedImageUrl String?
 }
