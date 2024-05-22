@@ -28,11 +28,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { BASE_PRICE } from '@/config/product';
 import { useUploadThing } from '@/lib/uploadthing';
-import { useMutation } from '@tanstack/react-query';
-import {
-  SaveConfigArgs,
-  saveConfig as _saveConfig,
-} from '@/app/configure/design/actions';
+import { useSaveConfig } from '@/app/configure/design/hooks';
 
 interface DesignConfiguratorProps {
   configId: string;
@@ -51,24 +47,6 @@ const DesignConfigurator = ({
   imageDimensions,
 }: DesignConfiguratorProps) => {
   const { toast } = useToast();
-  const router = useRouter();
-
-  const { mutate: saveConfig } = useMutation({
-    mutationKey: ['save-config'],
-    mutationFn: async (args: SaveConfigArgs) => {
-      await Promise.all([saveConfiguration(), _saveConfig(args)]);
-    },
-    onError: () => {
-      toast({
-        title: 'Something went wrong',
-        description: 'There was an error on our end. Please try again.',
-        variant: 'destructive',
-      });
-    },
-    onSuccess: () => {
-      router.push(`/configure/preview?id=${configId}`);
-    },
-  });
 
   const [options, setOptions] = useState<{
     color: (typeof COLORS)[number];
@@ -98,9 +76,7 @@ const DesignConfigurator = ({
   const phoneCaseRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { startUpload } = useUploadThing('imageUploader');
-
-  const saveConfiguration = async () => {
+  const saveCroppedPicture = async () => {
     try {
       const {
         left: caseLeft,
@@ -152,6 +128,9 @@ const DesignConfigurator = ({
       });
     }
   };
+
+  const { saveConfig } = useSaveConfig({ configId, saveCroppedPicture });
+  const { startUpload } = useUploadThing('imageUploader');
 
   return (
     <div className='relative mt-20 grid grid-cols-1 lg:grid-cols-3 mb-20 pb-20'>
