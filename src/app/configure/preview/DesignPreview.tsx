@@ -4,7 +4,12 @@ import Confetti from 'react-dom-confetti';
 import { Configuration } from '@prisma/client';
 
 import { Phone } from '@/components/Phone';
-import { COLORS, FINISHES, MODELS } from '@/validators/option-validator';
+import {
+  COLORS,
+  MODELS,
+  MATERIALS,
+  FINISHES,
+} from '@/validators/option-validator';
 import { cn, formatPrice } from '@/lib/utils';
 import { Check } from 'lucide-react';
 import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
@@ -25,6 +30,23 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
   const { label: modelLabel } = MODELS.options.find(
     ({ value }) => value === model
   )!;
+
+  const totalPrice =
+    BASE_PRICE +
+    PRODUCT_PRICES.material[material!] +
+    PRODUCT_PRICES.finish[finish!];
+
+  const selectedFinish = FINISHES.options.find(
+    ({ value }) => value === finish!
+  );
+  const selectedMaterial = MATERIALS.options.find(
+    ({ value }) => value === material!
+  );
+
+  const finishLabel = selectedFinish?.label || 'Textured Finish';
+  const finishPrice = selectedFinish?.price || 0;
+  const materialLabel = selectedMaterial?.label || 'Soft Polycarbonate';
+  const materialPrice = selectedMaterial?.price || 0;
 
   return (
     <>
@@ -83,22 +105,25 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                     {formatPrice(BASE_PRICE / 100)}
                   </p>
                 </div>
-                {finish === 'textured' ? (
-                  <div className='flex items-center justify-between py-1 mt-2'>
-                    <p className='text-gray-600'>Textured finish</p>
-                    <p className='font-medium text-gray-900'>
-                      {formatPrice(PRODUCT_PRICES.finish.textured / 100)}
-                    </p>
-                  </div>
-                ) : null}
-                {material === 'polycarbonate' ? (
-                  <div className='flex items-center justify-between py-1 mt-2'>
-                    <p className='text-gray-600'>Soft polycarbonate material</p>
-                    <p className='font-medium text-gray-900'>
-                      {formatPrice(PRODUCT_PRICES.material.polycarbonate / 100)}
-                    </p>
-                  </div>
-                ) : null}
+                <div className='flex items-center justify-between py-1 mt-2'>
+                  <p className='text-gray-600'>{finishLabel}</p>
+                  <p className='font-medium text-gray-900'>
+                    {formatPrice(finishPrice / 100)}
+                  </p>
+                </div>
+                <div className='flex items-center justify-between py-1 mt-2'>
+                  <p className='text-gray-600'>{materialLabel} material</p>
+                  <p className='font-medium text-gray-900'>
+                    {formatPrice(materialPrice / 100)}
+                  </p>
+                </div>
+                <div className='my-2 h-px bg-gray-200' />
+                <div className='flex items-center justify-between py-2'>
+                  <p className='font-semibold text-gray-900'>Order total</p>
+                  <p className='font-semibold text-gray-900'>
+                    {formatPrice(totalPrice / 100)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
