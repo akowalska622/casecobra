@@ -1,19 +1,19 @@
 'use client';
-import { useState, useEffect } from 'react';
-import Confetti from 'react-dom-confetti';
 import { Configuration } from '@prisma/client';
+import { ArrowRight, Check } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import Confetti from 'react-dom-confetti';
 
 import { Phone } from '@/components/Phone';
+import { Button } from '@/components/ui/button';
+import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
+import { cn, formatPrice } from '@/lib/utils';
 import {
   COLORS,
-  MODELS,
-  MATERIALS,
   FINISHES,
+  MATERIALS,
+  MODELS,
 } from '@/validators/option-validator';
-import { cn, formatPrice } from '@/lib/utils';
-import { ArrowRight, Check } from 'lucide-react';
-import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
-import { Button } from '@/components/ui/button';
 
 interface DesignPreviewProps {
   configuration: Configuration;
