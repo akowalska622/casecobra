@@ -5,7 +5,6 @@ import { RadioGroup, Radio } from '@headlessui/react';
 import NextImage from 'next/image';
 import { Rnd } from 'react-rnd';
 import { ArrowRight, Check, ChevronsUpDown } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 
 import { HandleComponent } from '@/components/HandleComponent';
 import { AspectRatio } from '@/components/ui/aspect-ratio';

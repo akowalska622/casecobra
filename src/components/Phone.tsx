@@ -33,7 +33,7 @@ export const Phone = ({
       <div className='absolute -z-10 inset-0'>
         <img
           src={imgSrc}
-          className='object-cover'
+          className='object-cover min-w-full min-h-full'
           alt='phone case filling image'
         />
       </div>
