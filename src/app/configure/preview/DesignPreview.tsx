@@ -11,8 +11,9 @@ import {
   FINISHES,
 } from '@/validators/option-validator';
 import { cn, formatPrice } from '@/lib/utils';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
+import { Button } from '@/components/ui/button';
 
 interface DesignPreviewProps {
   configuration: Configuration;
@@ -125,6 +126,11 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                   </p>
                 </div>
               </div>
+            </div>
+            <div className='mt-8 flex justify-end pb-12'>
+              <Button className='px-4 sm:px-6 lg:px-8'>
+                Check out <ArrowRight className='h-4 w-4 ml-1.5 inline' />
+              </Button>
             </div>
           </div>
         </div>
