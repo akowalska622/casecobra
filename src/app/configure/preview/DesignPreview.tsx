@@ -1,9 +1,12 @@
 'use client';
 import { Configuration } from '@prisma/client';
+import { useMutation } from '@tanstack/react-query';
 import { ArrowRight, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
+import { useRouter } from 'next/navigation';
 
+import { createCheckoutSession } from '@/app/configure/preview/actions';
 import { Phone } from '@/components/Phone';
 import { Button } from '@/components/ui/button';
 import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
@@ -14,7 +17,7 @@ import {
   MATERIALS,
   MODELS,
 } from '@/validators/option-validator';
-import { useMutation } from '@tanstack/react-query';
+import { useToast } from '@/components/ui/use-toast';
 
 interface DesignPreviewProps {
   configuration: Configuration;
@@ -22,6 +25,8 @@ interface DesignPreviewProps {
 
 const DesignPreview = ({ configuration }: DesignPreviewProps) => {
   const [showConfetti, setShowConfetti] = useState(false);
+  const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => setShowConfetti(true), []);
 
@@ -45,15 +50,29 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
     ({ value }) => value === material!
   );
 
-  const {} = useMutation({
-    mutationKey: ['get-checkout-session'],
-    // mutationFn:
-  });
-
   const finishLabel = selectedFinish?.label || 'Textured Finish';
   const finishPrice = selectedFinish?.price || 0;
   const materialLabel = selectedMaterial?.label || 'Soft Polycarbonate';
   const materialPrice = selectedMaterial?.price || 0;
+
+  const { mutate: createPaymentSession } = useMutation({
+    mutationKey: ['get-checkout-session'],
+    mutationFn: createCheckoutSession,
+    onSuccess: ({ url }) => {
+      if (url) {
+        router.push(url);
+      } else {
+        throw new Error('Failed to create checkout session');
+      }
+    },
+    onError: () => {
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      });
+    },
+  });
 
   return (
     <>
@@ -134,7 +153,12 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
               </div>
             </div>
             <div className='mt-8 flex justify-end pb-12'>
-              <Button className='px-4 sm:px-6 lg:px-8'>
+              <Button
+                className='px-4 sm:px-6 lg:px-8'
+                onClick={() =>
+                  createPaymentSession({ configId: configuration.id })
+                }
+              >
                 Check out <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>
