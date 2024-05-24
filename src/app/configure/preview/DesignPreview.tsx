@@ -14,6 +14,7 @@ import {
   MATERIALS,
   MODELS,
 } from '@/validators/option-validator';
+import { useMutation } from '@tanstack/react-query';
 
 interface DesignPreviewProps {
   configuration: Configuration;
@@ -43,6 +44,11 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
   const selectedMaterial = MATERIALS.options.find(
     ({ value }) => value === material!
   );
+
+  const {} = useMutation({
+    mutationKey: ['get-checkout-session'],
+    // mutationFn:
+  });
 
   const finishLabel = selectedFinish?.label || 'Textured Finish';
   const finishPrice = selectedFinish?.price || 0;
