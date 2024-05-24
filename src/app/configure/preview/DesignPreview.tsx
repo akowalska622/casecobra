@@ -1,14 +1,16 @@
 'use client';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { Configuration } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
 import { ArrowRight, Check } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-dom-confetti';
-import { useRouter } from 'next/navigation';
 
 import { createCheckoutSession } from '@/app/configure/preview/actions';
 import { Phone } from '@/components/Phone';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
 import { cn, formatPrice } from '@/lib/utils';
 import {
@@ -17,7 +19,7 @@ import {
   MATERIALS,
   MODELS,
 } from '@/validators/option-validator';
-import { useToast } from '@/components/ui/use-toast';
+import { LoginModal } from '@/components/LoginModal';
 
 interface DesignPreviewProps {
   configuration: Configuration;
@@ -25,12 +27,22 @@ interface DesignPreviewProps {
 
 const DesignPreview = ({ configuration }: DesignPreviewProps) => {
   const [showConfetti, setShowConfetti] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { user } = useKindeBrowserClient();
 
   useEffect(() => setShowConfetti(true), []);
 
-  const { color, model, finish, material, croppedImageUrl } = configuration;
+  const {
+    color,
+    model,
+    finish,
+    material,
+    croppedImageUrl,
+    id: configId,
+  } = configuration;
+
   const twColor = COLORS.find(
     (supportedColor) => supportedColor.value === color
   )?.tw;
@@ -74,8 +86,18 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
     },
   });
 
+  const handleCheckout = () => {
+    if (user) {
+      createPaymentSession({ configId });
+    } else {
+      // localStorage.setItem('configurationId', configId);
+      setIsLoginModalOpen(true);
+    }
+  };
+
   return (
     <>
+      <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
       <div
         aria-hidden='true'
         className='pointer-events-none select-none absolute inset-10 overflow-hidden flex justify-center'
@@ -153,12 +175,7 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
               </div>
             </div>
             <div className='mt-8 flex justify-end pb-12'>
-              <Button
-                className='px-4 sm:px-6 lg:px-8'
-                onClick={() =>
-                  createPaymentSession({ configId: configuration.id })
-                }
-              >
+              <Button className='px-4 sm:px-6 lg:px-8' onClick={handleCheckout}>
                 Check out <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>
