@@ -71,7 +71,7 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
           }}
         />
       </div>
-      <div className='mt-10 mb-10 flex flex-col items-center md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12'>
+      <div className='mt-10 mb-10 flex flex-col items-start md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12'>
         <div className='md:col-span-4 lg:col-span-3 md:row-span-2 md:row-end-2'>
           <Phone imgSrc={croppedImageUrl!} className={cn(`bg-${twColor}`)} />
         </div>
