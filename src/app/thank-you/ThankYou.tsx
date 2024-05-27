@@ -62,7 +62,7 @@ export const ThankYou = ({ orderId }: { orderId: string }) => {
             <h4 className='font-semibold text-zinc-900'>
               You made a great choice!
             </h4>
-            <p className='mt-2 text-sm text-zinc-600'>
+            <p className='mt-2 text-sm text-zinc-600 max-w-[550px]'>
               We at CaseCobra believe that a phone case doesn&apos;t only need
               to look good, but also last you for the years to come. We offer a
               5-year print guarantee: if your case isn&apos;t of the highest

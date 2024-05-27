@@ -33,7 +33,7 @@ export const PhonePreview = ({
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
-  }, [ref.current]);
+  }, []);
 
   const caseBackgroundColor =
     COLORS.find((color) => color.value === userColor)?.tw || 'bg-zinc-950';
