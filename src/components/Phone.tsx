@@ -27,7 +27,7 @@ export const Phone = ({
             ? '/phone-template-dark-edges.png'
             : '/phone-template-white-edges.png'
         }
-        className='pointerevents-none z-50 select-none'
+        className='pointer-events-none z-50 select-none'
         alt='phone case image'
       />
       <div className='absolute -z-10 inset-0'>

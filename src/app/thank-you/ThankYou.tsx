@@ -1,9 +1,10 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { Loader2 } from 'lucide-react';
 
 import { getPaymentStatus } from '@/app/thank-you/actions';
-import { Loader2 } from 'lucide-react';
+import { PhonePreview } from '@/components/PhonePreview';
 
 export const ThankYou = ({ orderId }: { orderId: string }) => {
   const { data } = useQuery({
@@ -69,7 +70,12 @@ export const ThankYou = ({ orderId }: { orderId: string }) => {
             </p>
           </div>
         </div>
-        <div className='flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl'></div>
+        <div className='flex space-x-6 overflow-hidden mt-4 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl'>
+          <PhonePreview
+            croppedImgUrl={configuration.croppedImageUrl!}
+            userColor={color}
+          />
+        </div>
       </div>
     </div>
   );
