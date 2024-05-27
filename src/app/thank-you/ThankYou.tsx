@@ -5,6 +5,7 @@ import { Loader2 } from 'lucide-react';
 
 import { getPaymentStatus } from '@/app/thank-you/actions';
 import { PhonePreview } from '@/components/PhonePreview';
+import { formatPrice } from '@/lib/utils';
 
 export const ThankYou = ({ orderId }: { orderId: string }) => {
   const { data } = useQuery({
@@ -38,12 +39,12 @@ export const ThankYou = ({ orderId }: { orderId: string }) => {
     );
   }
 
-  const { billingAddress, shippingAddress, configuration, user } = data;
+  const { billingAddress, shippingAddress, configuration, amount } = data;
   const { color } = configuration;
 
   return (
     <div className='bg-white'>
-      <div className='mx-auto max-2-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
+      <div className='mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8'>
         <div className='max-w-xl'>
           <p className='text-base font-semibold text-primary '>Thank you!</p>
           <h1 className='mt-2 text-4xl font-bold tracking-tight sm:text-5xl'>
@@ -62,7 +63,7 @@ export const ThankYou = ({ orderId }: { orderId: string }) => {
             <h4 className='font-semibold text-zinc-900'>
               You made a great choice!
             </h4>
-            <p className='mt-2 text-sm text-zinc-600 max-w-[550px]'>
+            <p className='mt-2 text-sm text-zinc-600'>
               We at CaseCobra believe that a phone case doesn&apos;t only need
               to look good, but also last you for the years to come. We offer a
               5-year print guarantee: if your case isn&apos;t of the highest
@@ -75,6 +76,67 @@ export const ThankYou = ({ orderId }: { orderId: string }) => {
             croppedImgUrl={configuration.croppedImageUrl!}
             userColor={color}
           />
+        </div>
+        <div>
+          <div className='grid grid-cols-2 gap-x-6 py-10 text-sm'>
+            <div>
+              <p className='font-medium text-gray-900'>Shipping address</p>
+              <div className='mt-2 text-zinc-700'>
+                <address className='not-italic'>
+                  <span className='block'>{shippingAddress?.name}</span>
+                  <span className='block'>{shippingAddress?.street}</span>
+                  <span className='block'>
+                    {shippingAddress?.postalCode} {shippingAddress?.city}
+                  </span>
+                  <span className='block'>{shippingAddress?.country}</span>
+                </address>
+              </div>
+            </div>
+            <div>
+              <p className='font-medium text-gray-900'>Billing address</p>
+              <div className='mt-2 text-zinc-700'>
+                <address className='not-italic'>
+                  <span className='block'>{billingAddress?.name}</span>
+                  <span className='block'>{billingAddress?.street}</span>
+                  <span className='block'>
+                    {billingAddress?.postalCode} {billingAddress?.city}
+                  </span>
+                  <span className='block'>{billingAddress?.country}</span>
+                </address>
+              </div>
+            </div>
+          </div>
+
+          <div className='grid grid-cols-2 gap-x-6 border-t border-zinc-200 py-10 text-sm'>
+            <div>
+              <p className='font-medium text-zinc-900'>Payment status</p>
+              <p className='mt-2 text-zinc-700'>Paid</p>
+            </div>
+            <div>
+              <p className='font-medium text-zinc-900'>Shipping Method</p>
+              <p className='mt-2 text-zinc-700'>
+                DHL, takes up to 3 working days
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className='space-y-6 border-t border-zinc-200 pt-10 text-sm'>
+          <div className='flex justify-between'>
+            <p className='font-medium text-zinc-900'>Subtotal</p>
+            <p className='font-medium text-zinc-700'>
+              {formatPrice(amount / 100)}
+            </p>
+          </div>
+          <div className='flex justify-between'>
+            <p className='font-medium text-zinc-900'>Shipping</p>
+            <p className='font-medium text-zinc-700'>{formatPrice(0)}</p>
+          </div>
+          <div className='flex justify-between'>
+            <p className='font-medium text-zinc-900'>Total</p>
+            <p className='font-medium text-zinc-700'>
+              {formatPrice(amount / 100)}
+            </p>
+          </div>
         </div>
       </div>
     </div>
