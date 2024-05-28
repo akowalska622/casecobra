@@ -46,5 +46,6 @@ export const constructMetadata = ({
       images: [image],
     },
     icons,
+    metadataBase: new URL('https://casecobra-ruddy.vercel.app/'),
   };
 };
