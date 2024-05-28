@@ -29,7 +29,7 @@ export default function Home() {
                 <img
                   src='/snake-1.png'
                   alt='snake illustration'
-                  className='w-full'
+                  className='w-full user-select-none user-drag-none'
                 />
               </div>
               <h1 className='relative w-fit tracking-tight text-balance mt-16 font-bold !leading-tight text-gray-900 text-5xl md:text-6xl lg:text-7xl'>

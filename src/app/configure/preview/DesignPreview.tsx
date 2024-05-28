@@ -67,7 +67,7 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
   const materialLabel = selectedMaterial?.label || 'Soft Polycarbonate';
   const materialPrice = selectedMaterial?.price || 0;
 
-  const { mutate: createPaymentSession } = useMutation({
+  const { mutate: createPaymentSession, isPending } = useMutation({
     mutationKey: ['get-checkout-session'],
     mutationFn: createCheckoutSession,
     onSuccess: ({ url }) => {
@@ -178,7 +178,13 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
               </div>
             </div>
             <div className='mt-8 flex justify-end pb-12'>
-              <Button className='px-4 sm:px-6 lg:px-8' onClick={handleCheckout}>
+              <Button
+                disabled={isPending}
+                isLoading={isPending}
+                loadingText='Redirecting to payment'
+                className='px-4 sm:px-6 lg:px-8'
+                onClick={handleCheckout}
+              >
                 Check out <ArrowRight className='h-4 w-4 ml-1.5 inline' />
               </Button>
             </div>
