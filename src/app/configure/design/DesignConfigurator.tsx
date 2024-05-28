@@ -128,7 +128,10 @@ const DesignConfigurator = ({
     }
   };
 
-  const { saveConfig } = useSaveConfig({ configId, saveCroppedPicture });
+  const { saveConfig, isPending } = useSaveConfig({
+    configId,
+    saveCroppedPicture,
+  });
   const { startUpload } = useUploadThing('imageUploader');
 
   return (
@@ -371,6 +374,9 @@ const DesignConfigurator = ({
                 )}
               </p>
               <Button
+                isLoading={isPending}
+                loadingText='Saving'
+                disabled={isPending}
                 size='sm'
                 className='w-full'
                 onClick={() =>

@@ -114,7 +114,10 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
       </div>
       <div className='mt-10 mb-10 flex flex-col items-start md:grid text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-12'>
         <div className='md:col-span-4 lg:col-span-3 md:row-span-2 md:row-end-2'>
-          <Phone imgSrc={croppedImageUrl!} className={cn(`bg-${twColor}`)} />
+          <Phone
+            imgSrc={croppedImageUrl!}
+            className={cn(`bg-${twColor}`, 'max-w-[150px] md:max-w-full')}
+          />
         </div>
         <div className='mt-6 sm:col-span-9 sm:mt-0 md:row-end-1'>
           <h3 className='text-3xl font-bold tracking-tight text-gray-900'>

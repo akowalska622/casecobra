@@ -17,7 +17,7 @@ export const useSaveConfig = ({
   const router = useRouter();
   const { toast } = useToast();
 
-  const { mutate: saveConfig } = useMutation({
+  const { mutate: saveConfig, isPending } = useMutation({
     mutationKey: ['save-config'],
     mutationFn: async (args: SaveConfigArgs) => {
       await Promise.all([saveCroppedPicture(), _saveConfig(args)]);
@@ -34,5 +34,5 @@ export const useSaveConfig = ({
     },
   });
 
-  return { saveConfig };
+  return { saveConfig, isPending };
 };
