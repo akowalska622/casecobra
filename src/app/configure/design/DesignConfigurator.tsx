@@ -347,7 +347,7 @@ const DesignConfigurator = ({
                                 className='mt-2 flex text-sm sm:ml-4 sm:mt-0 sm:flex-col sm:text-right'
                               >
                                 <span className='font-medium text-gray-900'>
-                                  +{formatPrice(option.price / 100)}
+                                  +{formatPrice(option.price)}
                                 </span>
                               </RadioGroup.Description>
                             ) : null}

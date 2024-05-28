@@ -127,9 +127,7 @@ export const ThankYou = () => {
         <div className='space-y-6 border-t border-zinc-200 pt-10 text-sm'>
           <div className='flex justify-between'>
             <p className='font-medium text-zinc-900'>Subtotal</p>
-            <p className='font-medium text-zinc-700'>
-              {formatPrice(amount / 100)}
-            </p>
+            <p className='font-medium text-zinc-700'>{formatPrice(amount)}</p>
           </div>
           <div className='flex justify-between'>
             <p className='font-medium text-zinc-900'>Shipping</p>
@@ -137,9 +135,7 @@ export const ThankYou = () => {
           </div>
           <div className='flex justify-between'>
             <p className='font-medium text-zinc-900'>Total</p>
-            <p className='font-medium text-zinc-700'>
-              {formatPrice(amount / 100)}
-            </p>
+            <p className='font-medium text-zinc-700'>{formatPrice(amount)}</p>
           </div>
         </div>
       </div>

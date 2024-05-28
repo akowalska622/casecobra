@@ -150,26 +150,26 @@ const DesignPreview = ({ configuration }: DesignPreviewProps) => {
                 <div className='flex items-center justify-between py-1 mt-2'>
                   <p className='text-gray-600'>Base price</p>
                   <p className='font-medium text-gray-900'>
-                    {formatPrice(BASE_PRICE / 100)}
+                    {formatPrice(BASE_PRICE)}
                   </p>
                 </div>
                 <div className='flex items-center justify-between py-1 mt-2'>
                   <p className='text-gray-600'>{finishLabel}</p>
                   <p className='font-medium text-gray-900'>
-                    {formatPrice(finishPrice / 100)}
+                    {formatPrice(finishPrice)}
                   </p>
                 </div>
                 <div className='flex items-center justify-between py-1 mt-2'>
                   <p className='text-gray-600'>{materialLabel} material</p>
                   <p className='font-medium text-gray-900'>
-                    {formatPrice(materialPrice / 100)}
+                    {formatPrice(materialPrice)}
                   </p>
                 </div>
                 <div className='my-2 h-px bg-gray-200' />
                 <div className='flex items-center justify-between py-2'>
                   <p className='font-semibold text-gray-900'>Order total</p>
                   <p className='font-semibold text-gray-900'>
-                    {formatPrice(totalPrice / 100)}
+                    {formatPrice(totalPrice)}
                   </p>
                 </div>
               </div>
