@@ -367,8 +367,7 @@ const DesignConfigurator = ({
             <div className='w-full flex gap-6 items-center'>
               <p className='font-medium whitespace-nowrap'>
                 {formatPrice(
-                  (BASE_PRICE + options.finish.price + options.material.price) /
-                    100
+                  BASE_PRICE + options.finish.price + options.material.price
                 )}
               </p>
               <Button
