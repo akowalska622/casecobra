@@ -31,7 +31,7 @@ export const NavBar = async () => {
                 </Link>
                 {isAdmin ? (
                   <Link
-                    href='/api/auth/logout'
+                    href='/dashboard'
                     className={buttonVariants({
                       size: 'sm',
                       variant: 'ghost',
@@ -63,7 +63,7 @@ export const NavBar = async () => {
                   Sign up
                 </Link>
                 <Link
-                  href='/api/admin/login'
+                  href='/api/auth/login'
                   className={buttonVariants({
                     size: 'sm',
                     variant: 'ghost',
