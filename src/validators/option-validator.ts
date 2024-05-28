@@ -5,7 +5,7 @@
 // bg-green-950 border-green-950
 // aspect-[896/1831]
 
-import { PRODUCT_PRICES } from '@/config/product';
+import { PRODUCT_PRICES } from '@/config/constants';
 
 export const COLORS = [
   {

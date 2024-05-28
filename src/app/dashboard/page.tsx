@@ -20,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { StatusDropdown } from '@/app/dashboard/StatusDropdown';
 
 const WEEKLY_GOAL = 500_00;
 const MONTHLY_GOAL = 2000_00;
@@ -142,7 +143,9 @@ const DashboardPage = async () => {
                       {order.user.email}
                     </div>
                   </TableCell>
-                  <TableCell className='hidden sm:table-cell'>status</TableCell>
+                  <TableCell className='hidden sm:table-cell'>
+                    <StatusDropdown id={order.id} orderStatus={order.status} />
+                  </TableCell>
                   <TableCell className='hidden sm:table-cell'>
                     {order.createdAt.toLocaleDateString()}
                   </TableCell>

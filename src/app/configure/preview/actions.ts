@@ -3,7 +3,7 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 import { db } from '@/db';
-import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
+import { BASE_PRICE, PRODUCT_PRICES } from '@/config/constants';
 import { Order } from '@prisma/client';
 import { stripe } from '@/lib/stripe';
 

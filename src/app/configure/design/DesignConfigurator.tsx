@@ -25,7 +25,7 @@ import {
 } from '@/validators/option-validator';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { BASE_PRICE } from '@/config/product';
+import { BASE_PRICE } from '@/config/constants';
 import { useUploadThing } from '@/lib/uploadthing';
 import { useSaveConfig } from '@/app/configure/design/hooks';
 

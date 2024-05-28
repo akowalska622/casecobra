@@ -11,7 +11,7 @@ import { createCheckoutSession } from '@/app/configure/preview/actions';
 import { Phone } from '@/components/Phone';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { BASE_PRICE, PRODUCT_PRICES } from '@/config/product';
+import { BASE_PRICE, PRODUCT_PRICES } from '@/config/constants';
 import { cn, formatPrice } from '@/lib/utils';
 import {
   COLORS,
