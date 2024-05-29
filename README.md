@@ -1,6 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) portfolio project, containing demo shop with product customization, sandbox payments and admin dashboard.
+
+## Stack
+
+Framework: **NextJS 14**
+Styles: **Tailwind CSS**
+Component library: **shadcn/ui**
+Database and ORM: **Nitro + Prisma**
+Fetching library: **React Query**
+Hosting images: **Uploadthing**
+Payments: **Stripe**
+Authorization: **Kinde**
+Deployment: **Vercel**
 
 ## Getting Started
+
+Visit the [production deployment](https://casecobra-ruddy.vercel.app/)
+
+or setup the local environment
 
 First, run the development server:
 
@@ -14,23 +30,22 @@ pnpm dev
 bun dev
 ```
 
+Create .env file and following .env.example fill it with your own credentials.
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## About project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project is a demo of phone cases shop. It contains landing page, case customization tool and admin dashboard.
 
-## Learn More
+### Phone customization
 
-To learn more about Next.js, take a look at the following resources:
+Follow the steps after clicking "create case" to upload your own image and place it in the desired place on the phone.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Payments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+In order to create a test payment (you won't be asked to pass your real credentials and it won't charge you) you need to pass address data (can/should be fake), card number 4242 4242 4242 4242, future expiring date and any 3 digits in CVV code.
 
-## Deploy on Vercel
+### Admin dashboard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In order to access admin dashboard you need to setup project locally and change email in .env file
