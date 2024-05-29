@@ -2,15 +2,17 @@ This is a [Next.js](https://nextjs.org/) portfolio project, containing demo shop
 
 ## Stack
 
-Framework: **NextJS 14**
-Styles: **Tailwind CSS**
-Component library: **shadcn/ui**
-Database and ORM: **Nitro + Prisma**
-Fetching library: **React Query**
-Hosting images: **Uploadthing**
-Payments: **Stripe**
-Authorization: **Kinde**
-Deployment: **Vercel**
+| **Aspect**              | **Tool/Framework**  |
+|:------------------------|:--------------------|
+| Framework               | NextJS 14           |
+| Styles                  | Tailwind CSS        |
+| Component library       | shadcn/ui           |
+| Database and ORM        | Nitro + Prisma      |
+| Fetching library        | React Query         |
+| Hosting images          | Uploadthing         |
+| Payments                | Stripe              |
+| Authorization           | Kinde               |
+| Deployment              | Vercel              |
 
 ## Getting Started
 
