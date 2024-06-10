@@ -7,7 +7,8 @@ This is a [Next.js](https://nextjs.org/) portfolio project, containing demo shop
 | Framework               | NextJS 14           |
 | Styles                  | Tailwind CSS        |
 | Component library       | shadcn/ui           |
-| Database and ORM        | Nitro + Prisma      |
+| Database                | PostreSQL           |
+| ORM                     | Prisma              |
 | Fetching library        | React Query         |
 | Hosting images          | Uploadthing         |
 | Payments                | Stripe              |
